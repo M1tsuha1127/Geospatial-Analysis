@@ -9,7 +9,7 @@ initdb -D 你的文件夹路径 -U 管理员（常为postgres） -W -E UTF8
 
 //createdb -O postgres -E UTF8 –e  test		
 //createdb -O 管理员 -E UTF8 –e  数据库名
-
+ 
 createdb -h localhost -p 5432 -U postgres m1tsuha（在postgresql\14\bin目录下进行）
 
 连接到数据库，进入数据库操作状态：psql -U 管理员 -d 数据库名 -h 127.0.0.1    
@@ -35,7 +35,7 @@ SELECT NAME FROM xiaoqu where geometry_within(st_geomfromtext('Point(9742477.494
 
 
 //ogr2ogr导入数据：
-cd C:\Anaconda\Library\bin
+cd E:\Anaconda\Library\bin
 
 ogr2ogr -f PostgreSQL "PG:dbname=test user=postgres password=123" -lco PG_USE_COPY=YES -lco SHAPE_ENCODING=GBK -progress -update -append  -gt -1 -nln china  E:/FAKEDESK/WHU/CLASSES/2_2/GeoSpatialDataAnalysis/china_shp/china.shp
 （shp使用的是GBK，但是创建数据库是UTF-8，所以-lco SHAPE_ENCODING=GBK）
@@ -43,7 +43,8 @@ ogr2ogr -f PostgreSQL "PG:dbname=test user=postgres password=123" -lco PG_USE_CO
 （当前目录.  当前用户的目录~  ）
 
 ogr2ogr -f PostgreSQL "PG:dbname=m1tsuha user=postgres password=123456" -lco PG_USE_COPY=YES -lco SHAPE_ENCODING=GBK -progress -update -append  -gt -1 -nln china C:/Users/86187/Desktop/Term/sophomore_2/GeoSpatialDataAnalysis/Data/china_shp/china.shp
-
+ogr2ogr -f PostgreSQL "PG:dbname=m1tsuha user=postgres password=123456" -lco PG_USE_COPY=YES -lco SHAPE_ENCODING=GBK -progress -update -append  -gt -1 -nln china E:/Desktop/Dataset/GeospatialData/china_shp/china.shp
+ogr2ogr -f PostgreSQL "PG:dbname=m1tsuha user=postgres password=123456" -lco PG_USE_COPY=YES -lco SHAPE_ENCODING=GBK -progress -update -append  -gt -1 -nln buildings E:/Desktop/Dataset/GeospatialData/buildings_a/buildings_a.shp
 
 //导入栅格数据：(在当前用户目录就可以)
 raster2pgsql  -s 4326 -I -C -M /Users/stzhou/geodata/srtm/srtm_51_05.tif -F -t 256x256 public.dem | psql -d test -U stzhou
